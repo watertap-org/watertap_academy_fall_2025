@@ -1,0 +1,16 @@
+black==24.3.0
+pre-commit
+
+# coverage
+pytest-cov
+
+# TODO pin exact version for pylint and astroid
+pylint<3
+astroid
+
+# docs
+sphinx==7.1.*
+nbsphinx
+sphinx_rtd_theme
+
+-e .[testing,notebooks,oli_api]

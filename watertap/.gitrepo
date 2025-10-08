@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:watertap-org/watertap.git
+	branch = main
+	commit = 1b6b4dfc9931590a2130cb1284a7f74136bb5ce8
+	parent = 7c718580ec2511a1358425f6003bfe8174f07978
+	method = merge
+	cmdver = 0.4.9

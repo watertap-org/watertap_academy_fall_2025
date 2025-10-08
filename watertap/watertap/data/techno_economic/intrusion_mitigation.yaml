@@ -1,0 +1,18 @@
+default:
+  energy_electric_flow_vol_inlet:
+    value: 0.051199332
+    units: kWh/m^3
+  capital_cost:
+    basis: flow_vol
+    cost_factor: None
+    reference: Monterey One Case Study Data
+    reference_state:
+      value: 4750.0
+      units: m^3/hr
+    capital_a_parameter:
+      value: 44.6E6
+      units: USD_1998
+    capital_b_parameter:
+      value: 1.0
+      units: dimensionless
+      
