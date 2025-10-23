@@ -93,7 +93,7 @@ jobs:
         echo '::group::Installing Watertap'
         cd watertap
         pip install --editable ".[notebooks]"
-        pip install pytest pytest-nbmake
+        pip install pytest nbmake
         echo '::endgroup::'
 
         echo '::group::Installing cyipopt'
