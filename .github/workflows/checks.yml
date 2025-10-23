@@ -1,0 +1,127 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  # NOTE: the value of `group` should be chosen carefully,
+  # otherwise we might end up over- or under-canceling workflow runs
+  # github.head_ref is only defined for pull request events
+  # so, if it's not present (i.e. event was triggered by push)
+  # we use github.ref instead
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    # important to make sure that all commands on Windows are run using Bash
+    # -l: login shell, needed when using Conda
+    shell: bash -l {0}
+
+env:
+  # --color=yes needed for colorized output to be shown in GHA logs
+  # --pyargs watertap is needed to be able to define CLI options in watertap/conftest.py
+  PYTEST_ADDOPTS: "--color=yes"
+  PIP_PROGRESS_BAR: "off"
+  WATERTAP_KERNEL_NAME: watertap-academy
+
+jobs:
+
+  code-formatting:
+    name: Check code is formatted (Black)
+    # OS and/or Python version don't make a difference, so we choose ubuntu and 3.8 as defaults
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Black with Jupyter support
+        # unlike the other jobs, we don't need to install WaterTAP and/or all the dev dependencies,
+        # but we still want to specify the Black version to use in requirements-dev.txt for local development
+        # so we extract the relevant line and pass it to a simple `pip install`
+        run: |
+          pip install --no-cache-dir black[jupyter]
+      - name: Run Black to verify that the committed code is formatted
+        run: |
+          black --check .
+
+  notebooks:
+    name: Test notebooks (py${{ matrix.python-version }}/${{ matrix.os }})
+    runs-on: ${{ matrix.os-version }}
+    needs: [code-formatting]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - '3.11'
+        os:
+          - linux
+          - win64
+        include:
+          - os: linux
+            os-version: ubuntu-22.04
+          - os: win64
+            os-version: windows-2022
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        activate-environment: watertap-academy
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        set -e  # Exit immediately if a command exits with a non-zero status
+          
+        echo '::group::Output of "conda install" commands'
+        conda install --quiet --yes pip setuptools wheel pandoc
+        echo '::endgroup::'
+
+        echo '::group::Cloning repositories'
+        git clone https://github.com/watertap-org/watertap_academy_fall_2025
+        cd ..
+        git clone https://github.com/watertap-org/watertap
+        echo '::endgroup::'
+
+
+        echo '::group::Installing Watertap'
+        cd watertap
+        pip install --editable ".[notebooks]"
+        echo '::endgroup::'
+
+        echo '::group::Installing cyipopt'
+        conda install -c conda-forge cyipopt
+        echo '::endgroup::'
+
+        echo '::group::Display installed packages'
+        conda list
+        pip list
+        pip show idaes-pse
+        pip show watertap
+        echo '::endgroup::'
+
+        echo '::group::Output of "idaes get-extensions" command'
+        idaes get-extensions --extra petsc --verbose
+        echo '::endgroup::'
+
+        echo '::group::Re-enter academy-repo'
+        cd ..
+        cd watertap_academy_fall_2025
+        echo '::endgroup::'
+
+    - name: Install Jupyter kernel
+      run: |
+        jupyter kernelspec list
+        python -m ipykernel install --user --name "${{ env.WATERTAP_KERNEL_NAME }}"
+        jupyter kernelspec list
+
+    - name: Run pytest with nbmake
+      run: |
+        pytest --nbmake --nbmake-kernel="${{ env.WATERTAP_KERNEL_NAME }}" **/*.ipynb
