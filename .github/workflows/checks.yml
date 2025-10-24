@@ -86,7 +86,6 @@ jobs:
 
         echo '::group::Cloning repositories'
         git clone https://github.com/watertap-org/watertap_academy_fall_2025
-        cd ..
         git clone https://github.com/watertap-org/watertap
         echo '::endgroup::'
 
@@ -94,6 +93,7 @@ jobs:
         echo '::group::Installing Watertap'
         cd watertap
         pip install --editable ".[notebooks]"
+        pip install pytest nbmake
         echo '::endgroup::'
 
         echo '::group::Installing cyipopt'
