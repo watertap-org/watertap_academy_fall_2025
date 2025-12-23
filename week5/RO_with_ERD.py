@@ -45,7 +45,6 @@ from watertap.unit_models.reverse_osmosis_0D import (
 from watertap.core.solvers import get_solver
 
 
-
 def main():
     m = build()
     scale_system(m)
@@ -187,9 +186,11 @@ def display_costing(m):
     m.fs.costing.aggregate_flow_electricity.display()
     m.fs.costing.SEC_component.display()
 
+
 def sensitivity_analysis_on_recovery(m, recoveries):
-    #TODO: Implement sensitivity analysis on recovery for upfront demonstration purposes before diving into parameter sweep setup
+    # TODO: Implement sensitivity analysis on recovery for upfront demonstration purposes before diving into parameter sweep setup
     pass
+
 
 if __name__ == "__main__":
     m, results = main()
