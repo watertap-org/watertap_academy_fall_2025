@@ -45,6 +45,8 @@ For convenience, the complete Fall 2025 Academy materials are also available as 
 
 **[⬇️ Download the WaterTAP Academy Fall 2025 Materials](DOWNLOAD_LINK_HERE)**
 
+Lecture recordings can also be accessed through a playlist on the **[NAWI YouTube Channel](PLAYLIST_LINK)**.
+
 For a citable, archived version of the course materials, see the corresponding **[Zenodo submission](ZENODO_LINK_HERE)**.
 
 ## WaterTAP Academy 2026
