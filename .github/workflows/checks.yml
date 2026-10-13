@@ -29,7 +29,7 @@ env:
   # --pyargs watertap is needed to be able to define CLI options in watertap/conftest.py
   PYTEST_ADDOPTS: "--color=yes"
   PIP_PROGRESS_BAR: "off"
-  WATERTAP_KERNEL_NAME: watertap-academy
+  WATERTAP_KERNEL_NAME: watertap-academy-2025
 
 jobs:
   code-formatting:
@@ -73,7 +73,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: watertap-academy
+          activate-environment: watertap-academy-2025
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
@@ -89,8 +89,12 @@ jobs:
 
           echo '::group::Installing WaterTAP Academy 2025 Environment'
           cd watertap_academy_fall_2025
-          ls -la
-          conda create -f environment.yml && conda activate watertap-academy-2025
+          conda env create -f environment.yml
+          conda activate watertap-academy-2025
+          echo '::endgroup::'
+
+          echo '::group::Output of "idaes get-extensions" command'
+          idaes get-extensions --verbose
           echo '::endgroup::'
 
           echo '::group::Display installed packages'
@@ -103,10 +107,12 @@ jobs:
           echo '::endgroup::'
       - name: Install Jupyter kernel for reaktoro
         run: |
+          conda activate watertap-academy-2025
           jupyter kernelspec list
           python -m ipykernel install --user --name "${{ env.WATERTAP_KERNEL_NAME }}_reaktoro"
           jupyter kernelspec list
 
       - name: Run pytest with nbmake
         run: |
+          conda activate watertap-academy-2025
           pytest --nbmake --nbmake-kernel="${{ env.WATERTAP_KERNEL_NAME }}_reaktoro" **/*.ipynb
