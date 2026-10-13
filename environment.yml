@@ -1,0 +1,19 @@
+name: watertap-academy-2025
+
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - setuptools
+  - wheel
+  - pandoc
+  - reaktoro=2.12.3
+  - cyipopt=1.4.1
+  - pytest
+  - nbmake
+  - ipykernel
+  - jupyter
+  - watertap=1.7.0
+  - pip:
+    - "reaktoro-pse @ git+https://github.com/watertap-org/reaktoro-pse.git@0.4.1"
