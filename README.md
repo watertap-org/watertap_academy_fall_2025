@@ -23,7 +23,7 @@ technologies as well as complete treatment trains, enabling users to investigate
 cost, energy consumption, and other system-level tradeoffs. WaterTAP development is funded by the National
 Alliance for Water Innovation (NAWI), the U.S. Department of Energy’s Energy-Water Desalination Hub.
 
-For more information, visit the [WaterTAP repository](https://github.com/watertap-org/watertap) or the [WaterTAP documentation](https://watertap.readthedocs.io/).
+For more information, visit the [WaterTAP repository](https://github.com/watertap-org/watertap/tree/1.7.0) or the [WaterTAP documentation](https://watertap.readthedocs.io/en/1.7.0/).
 
 
 ## Repository Contents
@@ -34,9 +34,10 @@ This repository has the following directories:
 * **`src/`:** The source directory can be used to store any source code you may have.
 * **`data/`:** The data directory can be used to store any data you may have.
 
-To run the WaterTAP models and notebooks, you will need to either:
-* (Recommended) Run them through Binder [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/watertap-org/watertap_academy_fall_2025/main), an online service providing a short-lived temporary sandbox environment on public cloud resources where Jupyter notebooks can be run, free of charge, without having to install any software locally.
-* Install the [WaterTAP](https://github.com/watertap-org/watertap) software package and its dependencies. For more information on how to do this, see the [WTA 2025 installation guide](https://github.com/watertap-org/watertap_academy_fall_2025/wiki).
+To run the WaterTAP models and notebooks, consider the following options:
+* **Quick Start:** Run them through Binder [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/watertap-org/watertap_academy_fall_2025/main), an online service providing a short-lived temporary sandbox environment on public cloud resources where Jupyter notebooks can be run, free of charge, without having to install any software locally.
+* **Simple Installation** Install only the necessary packages and dependencies. See the installation instructions [here](SIMPLEINSTALLATIONINSTRUCTIONS)
+* **Advanced Installation** Install the full [WaterTAP](https://github.com/watertap-org/watertap/tree/1.7.0) software package and its dependencies. See the installation instructions  [here](https://github.com/watertap-org/watertap_academy_fall_2025/wiki).
 
 
 ## Download the Complete Course Materials
@@ -48,12 +49,6 @@ For convenience, the complete Fall 2025 Academy materials are also available as 
 Lecture recordings can also be accessed through a playlist on the **[NAWI YouTube Channel](PLAYLIST_LINK)**.
 
 For a citable, archived version of the course materials, see the corresponding **[Zenodo submission](ZENODO_LINK_HERE)**.
-
-## WaterTAP Academy 2026
-
-A new WaterTAP Academy is scheduled for 2026 and applications are currently being accepted. Please fill out this [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSctuvsmh7DH34vSCPodhPoX29z7gdfYVjEkaui5S09NDoBtww/viewform?usp=header) if you're interested.
-
-The 2026 Academy will integrate feedback from WTA 2025 and provide another opportunity for participants to learn the fundamentals behind using WaterTAP.
 
 
 ## How to Contact Us
@@ -67,5 +62,3 @@ For general questions, contact:
 For technical questions or issues, contact:
 
 **WaterTAP Support:** [watertap-support@lbl.gov](mailto:watertap-support@lbl.gov)
-
-You can also visit the [WaterTAP GitHub organization](https://github.com/watertap-org) and the [WaterTAP documentation](https://watertap.readthedocs.io/) for additional information and resources.
