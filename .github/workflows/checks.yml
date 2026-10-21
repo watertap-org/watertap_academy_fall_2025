@@ -29,7 +29,7 @@ env:
   # --pyargs watertap is needed to be able to define CLI options in watertap/conftest.py
   PYTEST_ADDOPTS: "--color=yes"
   PIP_PROGRESS_BAR: "off"
-  WATERTAP_KERNEL_NAME: watertap-academy
+  WATERTAP_KERNEL_NAME: watertap-academy-2025
 
 jobs:
   code-formatting:
@@ -73,7 +73,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: watertap-academy
+          activate-environment: watertap-academy-2025
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
@@ -85,105 +85,16 @@ jobs:
 
           echo '::group::Cloning repositories'
           git clone https://github.com/watertap-org/watertap_academy_fall_2025
-          git clone https://github.com/watertap-org/watertap
           echo '::endgroup::'
 
-          echo '::group::Installing Watertap'
-          cd watertap
-          pip install --editable ".[notebooks]"
-          pip install pytest nbmake
-          echo '::endgroup::'
-
-          echo '::group::Installing cyipopt'
-          conda install -c conda-forge cyipopt
-          echo '::endgroup::'
-
-          echo '::group::Display installed packages'
-          conda list
-          pip list
-          pip show idaes-pse
-          pip show watertap
+          echo '::group::Installing WaterTAP Academy 2025 Environment'
+          cd watertap_academy_fall_2025
+          conda env create -f environment.yml
+          conda activate watertap-academy-2025
           echo '::endgroup::'
 
           echo '::group::Output of "idaes get-extensions" command'
-          idaes get-extensions --extra petsc --verbose
-          echo '::endgroup::'
-
-          echo '::group::Re-enter academy-repo'
-          cd ..
-          cd watertap_academy_fall_2025
-          echo '::endgroup::'
-
-      - name: Install Jupyter kernel
-        run: |
-          jupyter kernelspec list
-          python -m ipykernel install --user --name "${{ env.WATERTAP_KERNEL_NAME }}"
-          jupyter kernelspec list
-
-      - name: Run pytest with nbmake
-        run: |
-          pytest --nbmake --nbmake-kernel="${{ env.WATERTAP_KERNEL_NAME }}" **/*.ipynb
-
-  notebooks-reaktoro:
-    name: Test reaktoro notebooks (py${{ matrix.python-version }}/${{ matrix.os }})
-    runs-on: ${{ matrix.os-version }}
-    needs: [code-formatting]
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version:
-          - '3.11'
-        os:
-          - linux
-          - win64
-        include:
-          - os: linux
-            os-version: ubuntu-22.04
-          - os: win64
-            os-version: windows-2022
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          activate-environment: watertap-academy
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          set -e  # Exit immediately if a command exits with a non-zero status
-            
-          echo '::group::Output of "conda install" commands'
-          conda install --quiet --yes pip setuptools wheel pandoc
-          echo '::endgroup::'
-
-          echo '::group::Cloning repositories'
-          git clone https://github.com/watertap-org/watertap_academy_fall_2025
-          git clone https://github.com/watertap-org/watertap
-          echo '::endgroup::'
-
-          echo '::group::Installing Watertap'
-          cd watertap
-          pip install --editable ".[notebooks]"
-          pip install pytest nbmake
-          echo '::endgroup::'
-
-          echo '::group::Output of "idaes get-extensions" command'
-          idaes get-extensions --extra petsc --verbose
-          echo '::endgroup::'
-
-          echo '::group::Re-enter academy-repo'
-          cd ..
-          cd watertap_academy_fall_2025
-          echo '::endgroup::'
-          
-          echo '::group:: set numpy version to 1.26.4'
-          pip uninstall -y numpy
-          pip install numpy==1.26.4
-          echo '::endgroup::'
-
-          echo '::group:: installing reaktoro dependencies'
-          conda install -c conda-forge reaktoro=2.12.3 cyipopt=1.4.1
-          pip install git+https://github.com/watertap-org/reaktoro-pse.git
+          idaes get-extensions --verbose
           echo '::endgroup::'
 
           echo '::group::Display installed packages'
@@ -196,10 +107,12 @@ jobs:
           echo '::endgroup::'
       - name: Install Jupyter kernel for reaktoro
         run: |
+          conda activate watertap-academy-2025
           jupyter kernelspec list
           python -m ipykernel install --user --name "${{ env.WATERTAP_KERNEL_NAME }}_reaktoro"
           jupyter kernelspec list
 
       - name: Run pytest with nbmake
         run: |
+          conda activate watertap-academy-2025
           pytest --nbmake --nbmake-kernel="${{ env.WATERTAP_KERNEL_NAME }}_reaktoro" **/*.ipynb
