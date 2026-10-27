@@ -34,11 +34,10 @@ This repository has the following directories:
 * **`src/`:** The source directory can be used to store any source code you may have.
 * **`data/`:** The data directory can be used to store any data you may have.
 
-To run the WaterTAP models and notebooks, consider the following options:
+To run the WaterTAP models and notebooks, consider the following options. Note that the WTA 2025 materials are intended to be run with WaterTAP version 1.7.
 * **Quick Start:** Run them through Binder [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/watertap-org/watertap_academy_fall_2025/main), an online service providing a short-lived temporary sandbox environment on public cloud resources where Jupyter notebooks can be run, free of charge, without having to install any software locally.
 * **Simple Installation** Install only the necessary packages and dependencies. See the installation instructions [here](SIMPLEINSTALLATIONINSTRUCTIONS)
 * **Advanced Installation** Install the full [WaterTAP](https://github.com/watertap-org/watertap/tree/1.7.0) software package and its dependencies. See the installation instructions  [here](https://github.com/watertap-org/watertap_academy_fall_2025/wiki).
-
 
 ## Download the Complete Course Materials
 
