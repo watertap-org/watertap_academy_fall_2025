@@ -44,7 +44,7 @@ To run the WaterTAP models and notebooks, consider the following options:
 
 For convenience, the complete Fall 2025 Academy materials are also available as a downloadable ZIP archive. The archive contains the lecture slides, GitHub files, and supplementary materials organized into eight weekly directories.
 
-**[⬇️ Download the WaterTAP Academy Fall 2025 Materials](DOWNLOAD_LINK_HERE)**
+**[⬇️ Download the WaterTAP Academy Fall 2025 Materials](https://github.com/watertap-org/watertap_academy_fall_2025/releases/download/1.0.0/WaterTAP.Academy.Fall.2025.zip)**
 
 Lecture recordings can also be accessed through a playlist on the **[NAWI YouTube Channel](PLAYLIST_LINK)**.
 
